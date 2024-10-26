@@ -28,7 +28,12 @@ const INITIAL_NODES = [
   },
 ] satisfies Node[];
 
-export default function BackgroundGraph() {
+interface BackgroundGraphProps {
+  grafoText: string;
+  directed: boolean;
+}
+
+export default function BackgroundGraph(props: BackgroundGraphProps) {
   const [edges, setEdges, onEdgesChange] = useEdgesState([]);
   const [nodes, setNodes, onNodesChange] = useNodesState(INITIAL_NODES);
 

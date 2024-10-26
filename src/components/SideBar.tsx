@@ -1,13 +1,28 @@
 import { useEffect, useState } from "react";
+import Interruptor from "./Interruptor";
 
-export default function SideBar() {
+interface SideBarProps {
+  setGrafo: (text: string) => void;
+  setDirected: (directed: boolean) => void;
+}
+
+export default function SideBar({ setGrafo, setDirected }: SideBarProps) {
   const [inputText, setinputText] = useState<string>("");
 
   const [ordem, setOrdem] = useState<number>(0);
   const [grau, setGrau] = useState<number>(0);
 
+  const [ativo, setAtivo] = useState<boolean>(false);
+
   const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setinputText(e.target.value);
+    setGrafo(e.target.value);
+  };
+
+  const handleToggle = (newValue: boolean) => {
+    // Atualiza o estado do grafo direcionado
+    setAtivo(newValue);
+    setDirected(newValue);
   };
 
   // TODO: Implementar função para calcular a ordem e o grau do grafo
@@ -16,9 +31,22 @@ export default function SideBar() {
     setOrdem(2);
   }, []);
 
+  // TODO: Implementar função para transformar o texto em grafo
+  
+
   return (
     <aside className="w-64 bg-black-night-rider p-5 space-y-6">
       <h1 className="text-2xl text-center">GRIFO</h1>
+
+      {/* Botão para alternar entre grafo direcionado e grafo não direcionado*/}
+      <div className="flex flex-col justify-center w-full items-center">
+        {ativo ? (
+          <h2 className="text-xl">Direcionado</h2>
+        ) : (
+          <h2 className="text-xl">Não direcionado</h2>
+        )}
+        <Interruptor onToggle={handleToggle} />
+      </div>
 
       <textarea
         className="w-full h-32 p-2 text-gray-800 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
