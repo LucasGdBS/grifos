@@ -4,13 +4,20 @@ import Interruptor from "./Interruptor";
 interface SideBarProps {
   setGrafo: (text: string) => void;
   setDirected: (directed: boolean) => void;
+  ordem: number;
+  tamanho: number;
 }
 
-export default function SideBar({ setGrafo, setDirected }: SideBarProps) {
+export default function SideBar({
+  setGrafo,
+  setDirected,
+  ordem: order,
+  tamanho: size,
+}: SideBarProps) {
   const [inputText, setinputText] = useState<string>("");
 
   const [ordem, setOrdem] = useState<number>(0);
-  const [grau, setGrau] = useState<number>(0);
+  const [tamanho, setTamanho] = useState<number>(0);
 
   const [ativo, setAtivo] = useState<boolean>(false);
 
@@ -27,12 +34,11 @@ export default function SideBar({ setGrafo, setDirected }: SideBarProps) {
 
   // TODO: Implementar função para calcular a ordem e o grau do grafo
   useEffect(() => {
-    setGrau(2);
-    setOrdem(2);
-  }, []);
+    setTamanho(size);
+    setOrdem(order);
+  }, [order, size]);
 
   // TODO: Implementar função para transformar o texto em grafo
-  
 
   return (
     <aside className="w-64 bg-black-night-rider p-5 space-y-6">
@@ -57,7 +63,7 @@ export default function SideBar({ setGrafo, setDirected }: SideBarProps) {
 
       <div className="justify-between flex">
         <h2 className="text-xl">Ordem: {ordem}</h2>
-        <h2 className="text-xl">Grau: {grau}</h2>
+        <h2 className="text-xl">Tamanho: {tamanho}</h2>
       </div>
     </aside>
   );

@@ -11,7 +11,12 @@ function App() {
 
   return (
     <div className="flex h-screen overflow-x-hidden bg-black-eclipse text-white-whisper">
-      <SideBar setGrafo={setGrafoText} setDirected={setDirected} />
+      <SideBar
+        setGrafo={setGrafoText}
+        setDirected={setDirected}
+        ordem={nodes.length}
+        tamanho={nodes.length > 1 ? edges.length : 0}
+      />
 
       {/* Nesse main deverá ser implementado a visualização do grafo */}
       <main className="flex w-full h-full justify-center items-center ">
