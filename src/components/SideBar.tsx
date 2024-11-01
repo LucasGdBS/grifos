@@ -77,9 +77,23 @@ export default function SideBar({
         <h2 className="text-xl">Tamanho: {tamanho}</h2>
       </div>
 
-      <div className="text-gray-800">
-        <input type = "text" placeholder={"Escolha um vértice"} onChange={handleVerticeChange}/>
-        <h2 className="text-white text-xl"> Vértices Adjacentes {`${adjacenteEntrada} ${adjacenteSaida}` }</h2>
+      <div className="text-gray-800 flex flex-col space-y-8">
+        <input type="text" placeholder={"Escolha um vértice"} onChange={handleVerticeChange}/>
+        {ativo ? (
+            <div className="flex flex-col space-y-4 text-lg text-white">
+              <div className="flex flex-col">
+                <h2>Vértices de Entrada : </h2>
+                <h2>{adjacenteEntrada}</h2>
+              </div>
+              <div className="flex flex-col">
+                <h2 >Vértices de Saída : </h2>
+                <h2>{adjacenteSaida}</h2>
+              </div>
+            </div>
+        ) : (
+            <h2 className="text-white text-xl"> Vértices Adjacentes {`${adjacenteEntrada} ${adjacenteSaida}`}</h2>
+        )}
+
       </div>
     </aside>
 

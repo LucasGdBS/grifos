@@ -13,10 +13,10 @@ export function adjacencyCheck(input: string) {
         });
 
     function findAdjacentNodes(id: string) {
-        const fromEdges = edges.filter((edge) => edge.from === id);
-        const toEdges = edges.filter((edge) => edge.to === id);
-        const fromNodes = fromEdges.map((edge) => edge.to);
-        const toNodes = toEdges.map((edge) => edge.from);
+        const fromEdges = edges.filter((edge) => edge.to === id);
+        const toEdges = edges.filter((edge) => edge.from === id);
+        const fromNodes = fromEdges.map((edge) => edge.from);
+        const toNodes = toEdges.map((edge) => edge.to);
 
         // Remover duplicados
         const uniqueFromNodes = [...new Set(fromNodes)];
