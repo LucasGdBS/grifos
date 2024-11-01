@@ -4,15 +4,21 @@ import Interruptor from "./Interruptor";
 interface SideBarProps {
   setGrafo: (text: string) => void;
   setDirected: (directed: boolean) => void;
+  setNoEscolhido: (id: string) => void;
   ordem: number;
   tamanho: number;
+  adjacenteEntrada: string[];
+  adjacenteSaida: string[];
 }
 
 export default function SideBar({
   setGrafo,
   setDirected,
+  setNoEscolhido,
   ordem: order,
   tamanho: size,
+  adjacenteEntrada,
+  adjacenteSaida,
 }: SideBarProps) {
   const [inputText, setinputText] = useState<string>("");
 
@@ -20,7 +26,12 @@ export default function SideBar({
   const [tamanho, setTamanho] = useState<number>(0);
 
   const [ativo, setAtivo] = useState<boolean>(false);
+  const [, setVerticeEscolhido] = useState<string>("");
 
+  const handleVerticeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setVerticeEscolhido(e.target.value);
+    setNoEscolhido(e.target.value);
+  };
   const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setinputText(e.target.value);
     setGrafo(e.target.value);
@@ -65,6 +76,13 @@ export default function SideBar({
         <h2 className="text-xl">Ordem: {ordem}</h2>
         <h2 className="text-xl">Tamanho: {tamanho}</h2>
       </div>
+
+      <div className="text-gray-800">
+        <input type = "text" placeholder={"Escolha um vértice"} onChange={handleVerticeChange}/>
+        <h2 className="text-white text-xl"> Vértices Adjacentes {`${adjacenteEntrada} ${adjacenteSaida}` }</h2>
+      </div>
     </aside>
+
+
   );
 }
