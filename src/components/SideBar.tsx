@@ -113,7 +113,7 @@ export default function SideBar({
         </div>
 
         <div className="text-gray-800 flex flex-col space-y-8">
-          <input type="text" placeholder={"Escolha um vértice"} onChange={handleVerticeChange}/>
+          <input type="text" placeholder={"Escolha um vértice"} onChange={handleVerticeChange} className="p-2 rounded-md"/>
           {ativo ? (
               <div className="flex flex-col space-y-4 text-lg text-white">
                 <div className="flex flex-col">
