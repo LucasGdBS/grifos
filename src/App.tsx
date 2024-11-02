@@ -8,8 +8,17 @@ function App() {
   const [grafoText, setGrafoText] = useState<string>("");
   const [directed, setDirected] = useState<boolean>(false);
 
+  const [fromNode, setFromNode] = useState<string>("");
+  const [toNode, setToNode] = useState<string>("");
   const [noEscolhido, setNoEscolhido] = useState<string>("");
+
   const { nodes, edges } = parseGraphString(grafoText);
+
+  const adjacencyCheckInstance = adjacencyCheck(grafoText);
+  const areNodesAdjacent = adjacencyCheckInstance
+        ? adjacencyCheckInstance.findAdjacentNodes(fromNode).from.includes(toNode) ||
+        adjacencyCheckInstance.findAdjacentNodes(fromNode).to.includes(toNode)
+        : false;
 
   const adjacencyCheck1 = adjacencyCheck(grafoText);
   const {from, to} = adjacencyCheck1.findAdjacentNodes(noEscolhido);
@@ -19,10 +28,14 @@ function App() {
         setGrafo={setGrafoText}
         setDirected={setDirected}
         setNoEscolhido={setNoEscolhido}
+        setFromNode={setFromNode}
+        setToNode={setToNode}
         ordem={nodes.length}
         tamanho={nodes.length > 1 ? edges.length : 0}
         adjacenteEntrada={from}
         adjacenteSaida={to}
+        areNodesAdjacent={areNodesAdjacent}
+
       />
 
       {/* Nesse main deverá ser implementado a visualização do grafo */}
