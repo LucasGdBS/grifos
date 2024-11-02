@@ -39,9 +39,26 @@ export default function Graph({ nodes, edges, isDirectional }: GraphProps) {
         },
       },
       edges: {
+        width: 2,
+        color: {
+          color: "#6B7280",
+          highlight: "#4F46E5",
+        },
+        font: {
+          size: 12,
+        },
         arrows: isDirectional ? { to: { enabled: true } } : undefined,
       },
-      physics: { enabled: true },
+      physics: {
+        enabled: true,
+        solver: "forceAtlas2Based",
+        forceAtlas2Based: {
+          gravitationalConstant: -26,
+          centralGravity: 0.005,
+          springLength: 230,
+          springConstant: 0.18,
+        },
+      },
     };
 
     if (containerRef.current) {
