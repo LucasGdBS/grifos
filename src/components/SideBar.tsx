@@ -94,13 +94,13 @@ export default function SideBar({
       <div className="text-gray-800 flex flex-col space-y-4">
         <input
           type="text"
-          placeholder="Vértice de origem"
+          placeholder="Vértice 1"
           onChange={handleFromNodeChange}
           className="p-2 rounded-md"
         />
         <input
           type="text"
-          placeholder="Vértice de destino"
+          placeholder="Vértice 2"
           onChange={handleToNodeChange}
           className="p-2 rounded-md"
         />
