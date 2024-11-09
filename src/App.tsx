@@ -3,6 +3,8 @@ import SideBar from "./components/SideBar";
 import Graph from "./components/Graph";
 import { parseGraphString } from "./utils/parseGraphString";
 import {adjacencyCheck} from "./utils/adjacencyCheck.ts";
+import { degreeCheck } from "./utils/degreeCheck.ts";
+
 
 function App() {
   const [grafoText, setGrafoText] = useState<string>("");
@@ -17,11 +19,16 @@ function App() {
   const adjacencyCheckInstance = adjacencyCheck(grafoText);
   const areNodesAdjacent = adjacencyCheckInstance
         ? adjacencyCheckInstance.findAdjacentNodes(fromNode).from.includes(toNode) ||
-        adjacencyCheckInstance.findAdjacentNodes(fromNode).to.includes(toNode)
-        : false;
+        adjacencyCheckInstance.findAdjacentNodes(fromNode).to.includes(toNode): false;
 
   const adjacencyCheck1 = adjacencyCheck(grafoText);
   const {from, to} = adjacencyCheck1.findAdjacentNodes(noEscolhido);
+
+  const degreeCheckInstance = degreeCheck(grafoText, noEscolhido);
+  const inDegree = degreeCheckInstance.inDegree;
+  const outDegree = degreeCheckInstance.outDegree;
+
+
   return (
     <div className="flex h-screen overflow-x-hidden bg-black-eclipse text-white-whisper">
       <SideBar
@@ -35,7 +42,8 @@ function App() {
         adjacenteEntrada={from}
         adjacenteSaida={to}
         areNodesAdjacent={areNodesAdjacent}
-
+        inDegree={inDegree} 
+        outDegree={outDegree} 
       />
 
       {/* Nesse main deverá ser implementado a visualização do grafo */}

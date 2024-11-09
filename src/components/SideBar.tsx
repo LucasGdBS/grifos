@@ -12,6 +12,8 @@ interface SideBarProps {
   tamanho: number;
   adjacenteEntrada: string[];
   adjacenteSaida: string[];
+  inDegree: number; // Adicionando inDegree ao tipo
+  outDegree: number; // Adicionando outDegree ao tipo
 }
 
 export default function SideBar({
@@ -25,6 +27,8 @@ export default function SideBar({
   tamanho: size,
   adjacenteEntrada,
   adjacenteSaida,
+  inDegree,  // Adicionando inDegree à desestruturação das props
+  outDegree, // Adicionando outDegree à desestruturação das props
 }: SideBarProps) {
   const [inputText, setinputText] = useState<string>("");
 
@@ -38,6 +42,7 @@ export default function SideBar({
     setVerticeEscolhido(e.target.value);
     setNoEscolhido(e.target.value);
   };
+  
   const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setinputText(e.target.value);
     setGrafo(e.target.value);
@@ -69,7 +74,7 @@ export default function SideBar({
     <aside className="w-80 bg-black-night-rider p-5 space-y-6">
       <h1 className="text-2xl text-center">GRIFO</h1>
 
-      {/* Botão para alternar entre grafo direcionado e grafo não direcionado*/}
+      {/* Botão para alternar entre grafo direcionado e não direcionado */}
       <div className="flex flex-col justify-center w-full items-center">
         {ativo ? (
           <h2 className="text-xl">Direcionado</h2>
@@ -127,6 +132,10 @@ export default function SideBar({
             <div className="flex flex-col">
               <h2>Vértices de Saída : </h2>
               <h2>{adjacenteSaida.join(" ")}</h2>
+            </div>
+            <div className="flex flex-col">
+              <h2>Grau de Entrada: {inDegree}</h2> {/* Exibindo o grau de entrada */}
+              <h2>Grau de Saída: {outDegree}</h2>   {/* Exibindo o grau de saída */}
             </div>
           </div>
         ) : (
