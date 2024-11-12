@@ -71,7 +71,7 @@ export default function SideBar({
 
   return (
     <aside className="w-80 bg-black-night-rider p-5 space-y-4">
-      <h1 className="text-2xl text-center">GRIFO</h1>
+      <h1 className="text-3xl text-center font-geist">GRIFO</h1>
 
       {/* Botão para alternar entre grafo direcionado e não direcionado */}
       <div className="flex items-center justify-center w-full space-x-2">

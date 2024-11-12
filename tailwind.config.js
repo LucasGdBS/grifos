@@ -7,7 +7,10 @@ export default {
         'black-night-rider': '#171717',
         'black-eclipse': '#212121',
         'white-whisper': '#ECECEC',
-      }
+      },
+      fontFamily: {
+        'geist': ['Geist', 'sans-serif'],
+      },
     },
   },
   plugins: [],
