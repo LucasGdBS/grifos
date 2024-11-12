@@ -12,8 +12,8 @@ interface SideBarProps {
   tamanho: number;
   adjacenteEntrada: string[];
   adjacenteSaida: string[];
-  inDegree: number; // Adicionando inDegree ao tipo
-  outDegree: number; // Adicionando outDegree ao tipo
+  inDegree: number; 
+  outDegree: number; 
   shortestPathResult: { cost: number; path: string[] } | null; // Recebe o resultado do menor caminho
 }
 
@@ -28,8 +28,8 @@ export default function SideBar({
   tamanho: size,
   adjacenteEntrada,
   adjacenteSaida,
-  inDegree, // Adicionando inDegree à desestruturação das props
-  outDegree, // Adicionando outDegree à desestruturação das props
+  inDegree, 
+  outDegree, 
   shortestPathResult,
 }: SideBarProps) {
   const [inputText, setinputText] = useState<string>("");
@@ -41,8 +41,8 @@ export default function SideBar({
   const [, setVerticeEscolhido] = useState<string>("");
 
   const handleVerticeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setVerticeEscolhido(e.target.value);
-    setNoEscolhido(e.target.value);
+    setVerticeEscolhido(e.target.value.trim());
+    setNoEscolhido(e.target.value.trim());
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -51,11 +51,11 @@ export default function SideBar({
   };
 
   const handleFromNodeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFromNode(e.target.value);
+    setFromNode(e.target.value.trim());
   };
 
   const handleToNodeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setToNode(e.target.value);
+    setToNode(e.target.value.trim());
   };
 
   const handleToggle = (newValue: boolean) => {
@@ -64,13 +64,10 @@ export default function SideBar({
     setDirected(newValue);
   };
 
-  // TODO: Implementar função para calcular a ordem e o grau do grafo
   useEffect(() => {
     setTamanho(size);
     setOrdem(order);
   }, [order, size]);
-
-  // TODO: Implementar função para transformar o texto em grafo
 
   return (
     <aside className="w-80 bg-black-night-rider p-5 space-y-4">

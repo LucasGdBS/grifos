@@ -5,6 +5,7 @@ import { parseGraphString } from "./utils/parseGraphString";
 import { adjacencyCheck } from "./utils/adjacencyCheck.ts";
 import { degreeCheck } from "./utils/degreeCheck.ts";
 import { shortestPathBetweenTwoPoints } from "./utils/shortestPathBetweenTwoPoints";
+import Interruptor from "./components/Interruptor.tsx";
 
 function App() {
   const [grafoText, setGrafoText] = useState<string>("");
@@ -38,6 +39,8 @@ function App() {
     directed
   );
 
+  const [isOn, setIsOn] = useState<boolean>(true);
+
   return (
     <div className="flex h-screen overflow-x-hidden bg-black-eclipse text-white-whisper">
       <SideBar
@@ -59,12 +62,22 @@ function App() {
       {/* Nesse main deverá ser implementado a visualização do grafo */}
       <main className="flex w-full h-full justify-center items-center ">
         <div className="border rounded-xl h-4/5 w-4/5 bg-white-whisper">
-          <Graph
-            nodes={nodes}
-            edges={edges}
-            isDirectional={directed}
-            primaryNodeInput={grafoText}
-          />
+          {isOn ? (
+            <Graph
+              nodes={nodes}
+              edges={edges}
+              isDirectional={directed}
+              primaryNodeInput={grafoText}
+            />
+          ) : (
+            <div className="flex justify-center items-center h-full ">
+              <p className="text-black-eclipse text-5xl">Desabilitado</p>
+            </div>
+          )}
+        </div>
+        <div className="fixed bottom-4 right-4 flex gap-2 text-sm">
+          <p>Desabilitar Grafo para desempenho</p>
+          <Interruptor onToggle={() => setIsOn(!isOn)} />
         </div>
       </main>
     </div>
