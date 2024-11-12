@@ -14,6 +14,7 @@ interface SideBarProps {
   adjacenteSaida: string[];
   inDegree: number; // Adicionando inDegree ao tipo
   outDegree: number; // Adicionando outDegree ao tipo
+  shortestPathResult: { cost: number; path: string[] } | null, // Recebe o resultado do menor caminho
 }
 
 export default function SideBar({
@@ -28,7 +29,8 @@ export default function SideBar({
   adjacenteEntrada,
   adjacenteSaida,
   inDegree,  // Adicionando inDegree à desestruturação das props
-  outDegree, // Adicionando outDegree à desestruturação das props
+  outDegree, // Adicionando outDegree à desestruturação das props  
+  shortestPathResult,
 }: SideBarProps) {
   const [inputText, setinputText] = useState<string>("");
 
@@ -71,17 +73,19 @@ export default function SideBar({
   // TODO: Implementar função para transformar o texto em grafo
 
   return (
-    <aside className="w-80 bg-black-night-rider p-5 space-y-6">
+    <aside className="w-80 bg-black-night-rider p-5 space-y-4">
       <h1 className="text-2xl text-center">GRIFO</h1>
 
       {/* Botão para alternar entre grafo direcionado e não direcionado */}
-      <div className="flex flex-col justify-center w-full items-center">
+      <div className="flex items-center justify-center w-full space-x-2">
         {ativo ? (
-          <h2 className="text-xl">Direcionado</h2>
+          <h2 className="text-base">Direcionado</h2>
         ) : (
-          <h2 className="text-xl">Não direcionado</h2>
+          <h2 className="text-base">Não direcionado</h2>
         )}
-        <Interruptor onToggle={handleToggle} />
+        <div className="transform scale-75">
+          <Interruptor onToggle={handleToggle}/>
+        </div>
       </div>
 
       <textarea
@@ -92,31 +96,49 @@ export default function SideBar({
       ></textarea>
 
       <div className="justify-between flex">
-        <h2 className="text-xl">Ordem: {ordem}</h2>
-        <h2 className="text-xl">Tamanho: {tamanho}</h2>
+        <h2 className="text-sm">Ordem: {ordem}</h2>
+        <h2 className="text-sm">Tamanho: {tamanho}</h2>
       </div>
 
+      <hr/>
       <div className="text-gray-800 flex flex-col space-y-4">
-        <input
-          type="text"
-          placeholder="Vértice 1"
-          onChange={handleFromNodeChange}
-          className="p-2 rounded-md"
-        />
-        <input
-          type="text"
-          placeholder="Vértice 2"
-          onChange={handleToNodeChange}
-          className="p-2 rounded-md"
-        />
+
+        <label className="text-white text-sm font-semibold">Menor caminho, custo e adjacência:</label>
+        <div className="flex flex-row space-x-2 ">
+          <input
+            type="text"
+            placeholder="Vértice 1"
+            onChange={handleFromNodeChange}
+            className="p-2 rounded-md w-1/2"
+          />
+          <input
+            type="text"
+            placeholder="Vértice 2"
+            onChange={handleToNodeChange}
+            className="p-2 rounded-md w-1/2"
+          />
+          </div>
+
         {areNodesAdjacent ? (
-          <h2 className="text-green-500 text-lg">Vértices são adjacentes</h2>
+          <h2 className="text-green-400 text-sm">Vértices são adjacentes</h2>
         ) : (
-          <h2 className="text-red-600 text-lg">Vértices não são adjacentes</h2>
+          <h2 className="text-red-400 text-sm">Vértices não são adjacentes</h2>
+        )}
+
+        {shortestPathResult ? (
+        <div>
+          <h2 className="text-green-400 text-sm">Custo: {shortestPathResult.cost}</h2>
+          <h2 className="text-green-400 text-sm">Caminho: {shortestPathResult.path.join(" -> ")}</h2>
+        </div>
+        ) : (
+          <h2 className="text-red-400 text-sm">Vértices não conexos</h2>
         )}
       </div>
 
-      <div className="text-gray-800 flex flex-col space-y-8">
+      <hr/>
+
+      <div className="text-gray-800 flex flex-col space-y-4">
+        <label className="text-white text-sm font-semibold"> Grau e vertices adjacentes </label>
         <input
           type="text"
           placeholder={"Escolha um vértice"}
@@ -124,14 +146,10 @@ export default function SideBar({
           className="p-2 rounded-md"
         />
         {ativo ? (
-          <div className="flex flex-col space-y-4 text-lg text-white">
+          <div className="flex flex-col space-y-4 text-lg text-white text-sm">
             <div className="flex flex-col">
-              <h2>Vértices de Entrada : </h2>
-              <h2>{adjacenteEntrada.join(" ")}</h2>
-            </div>
-            <div className="flex flex-col">
-              <h2>Vértices de Saída : </h2>
-              <h2>{adjacenteSaida.join(" ")}</h2>
+              <h2>Vértices de Entrada : {adjacenteEntrada.join(" ")}</h2>
+              <h2>Vértices de Saída : {adjacenteSaida.join(" ")}</h2>
             </div>
             <div className="flex flex-col">
               <h2>Grau de Entrada: {inDegree}</h2> {/* Exibindo o grau de entrada */}
@@ -140,9 +158,7 @@ export default function SideBar({
           </div>
         ) : (
           <div>
-            <h2 className="text-white text-xl">Vértices Adjacentes: </h2>
-            <h2 className="text-white text-xl">
-              {Array.from(
+            <h2 className="text-white text-sm">Vértices Adjacentes: {Array.from(
                 new Set([...adjacenteEntrada, ...adjacenteSaida])
               ).join(" ")}
             </h2>

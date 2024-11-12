@@ -4,6 +4,7 @@ import Graph from "./components/Graph";
 import { parseGraphString } from "./utils/parseGraphString";
 import {adjacencyCheck} from "./utils/adjacencyCheck.ts";
 import { degreeCheck } from "./utils/degreeCheck.ts";
+import { shortestPathBetweenTwoPoints } from "./utils/shortestPathBetweenTwoPoints";
 
 
 function App() {
@@ -28,6 +29,12 @@ function App() {
   const inDegree = degreeCheckInstance.inDegree;
   const outDegree = degreeCheckInstance.outDegree;
 
+  const shortestPathResult = shortestPathBetweenTwoPoints(
+    { nodes, edges },
+    fromNode,
+    toNode,
+    directed
+);
 
   return (
     <div className="flex h-screen overflow-x-hidden bg-black-eclipse text-white-whisper">
@@ -44,12 +51,13 @@ function App() {
         areNodesAdjacent={areNodesAdjacent}
         inDegree={inDegree} 
         outDegree={outDegree} 
+        shortestPathResult={shortestPathResult} 
       />
 
       {/* Nesse main deverá ser implementado a visualização do grafo */}
       <main className="flex w-full h-full justify-center items-center ">
         <div className="border rounded-xl h-4/5 w-4/5 bg-white-whisper">
-          <Graph nodes={nodes} edges={edges} isDirectional={directed} />
+          <Graph nodes={nodes} edges={edges} isDirectional={directed} primaryNodeInput={grafoText}/>
         </div>
       </main>
     </div>
