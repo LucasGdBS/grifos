@@ -2,10 +2,9 @@ import { useState } from "react";
 import SideBar from "./components/SideBar";
 import Graph from "./components/Graph";
 import { parseGraphString } from "./utils/parseGraphString";
-import {adjacencyCheck} from "./utils/adjacencyCheck.ts";
+import { adjacencyCheck } from "./utils/adjacencyCheck.ts";
 import { degreeCheck } from "./utils/degreeCheck.ts";
 import { shortestPathBetweenTwoPoints } from "./utils/shortestPathBetweenTwoPoints";
-
 
 function App() {
   const [grafoText, setGrafoText] = useState<string>("");
@@ -19,11 +18,14 @@ function App() {
 
   const adjacencyCheckInstance = adjacencyCheck(grafoText);
   const areNodesAdjacent = adjacencyCheckInstance
-        ? adjacencyCheckInstance.findAdjacentNodes(fromNode).from.includes(toNode) ||
-        adjacencyCheckInstance.findAdjacentNodes(fromNode).to.includes(toNode): false;
+    ? adjacencyCheckInstance
+        .findAdjacentNodes(fromNode)
+        .from.includes(toNode) ||
+      adjacencyCheckInstance.findAdjacentNodes(fromNode).to.includes(toNode)
+    : false;
 
   const adjacencyCheck1 = adjacencyCheck(grafoText);
-  const {from, to} = adjacencyCheck1.findAdjacentNodes(noEscolhido);
+  const { from, to } = adjacencyCheck1.findAdjacentNodes(noEscolhido);
 
   const degreeCheckInstance = degreeCheck(grafoText, noEscolhido);
   const inDegree = degreeCheckInstance.inDegree;
@@ -34,7 +36,7 @@ function App() {
     fromNode,
     toNode,
     directed
-);
+  );
 
   return (
     <div className="flex h-screen overflow-x-hidden bg-black-eclipse text-white-whisper">
@@ -49,15 +51,20 @@ function App() {
         adjacenteEntrada={from}
         adjacenteSaida={to}
         areNodesAdjacent={areNodesAdjacent}
-        inDegree={inDegree} 
-        outDegree={outDegree} 
-        shortestPathResult={shortestPathResult} 
+        inDegree={inDegree}
+        outDegree={outDegree}
+        shortestPathResult={shortestPathResult}
       />
 
       {/* Nesse main deverá ser implementado a visualização do grafo */}
       <main className="flex w-full h-full justify-center items-center ">
         <div className="border rounded-xl h-4/5 w-4/5 bg-white-whisper">
-          <Graph nodes={nodes} edges={edges} isDirectional={directed} primaryNodeInput={grafoText}/>
+          <Graph
+            nodes={nodes}
+            edges={edges}
+            isDirectional={directed}
+            primaryNodeInput={grafoText}
+          />
         </div>
       </main>
     </div>

@@ -6,10 +6,15 @@ interface GraphProps {
   nodes: { id: string; label: string }[];
   edges: { from: string; to: string }[];
   isDirectional: boolean;
-  primaryNodeInput: string; 
+  primaryNodeInput: string;
 }
 
-export default function Graph({ nodes, edges, isDirectional, primaryNodeInput }: GraphProps) {
+export default function Graph({
+  nodes,
+  edges,
+  isDirectional,
+  primaryNodeInput,
+}: GraphProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const networkRef = useRef<Network | null>(null);
 
@@ -62,7 +67,11 @@ export default function Graph({ nodes, edges, isDirectional, primaryNodeInput }:
 
   useEffect(() => {
     if (containerRef.current && !networkRef.current) {
-      networkRef.current = new Network(containerRef.current, { nodes, edges }, getOptions());
+      networkRef.current = new Network(
+        containerRef.current,
+        { nodes, edges },
+        getOptions()
+      );
     }
   }, []);
 
@@ -76,9 +85,11 @@ export default function Graph({ nodes, edges, isDirectional, primaryNodeInput }:
   // Atualiza as arestas e a direção, mantendo o nível de zoom e posição
   useEffect(() => {
     if (networkRef.current) {
-      const updatedEdges = edges.map(edge => ({
+      const updatedEdges = edges.map((edge) => ({
         ...edge,
-        arrows: isDirectional ? { to: { enabled: true, scaleFactor: 1 } } : undefined,
+        arrows: isDirectional
+          ? { to: { enabled: true, scaleFactor: 1 } }
+          : undefined,
       }));
       networkRef.current.setData({ nodes, edges: updatedEdges });
     }

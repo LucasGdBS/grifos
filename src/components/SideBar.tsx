@@ -14,7 +14,7 @@ interface SideBarProps {
   adjacenteSaida: string[];
   inDegree: number; // Adicionando inDegree ao tipo
   outDegree: number; // Adicionando outDegree ao tipo
-  shortestPathResult: { cost: number; path: string[] } | null, // Recebe o resultado do menor caminho
+  shortestPathResult: { cost: number; path: string[] } | null; // Recebe o resultado do menor caminho
 }
 
 export default function SideBar({
@@ -28,8 +28,8 @@ export default function SideBar({
   tamanho: size,
   adjacenteEntrada,
   adjacenteSaida,
-  inDegree,  // Adicionando inDegree à desestruturação das props
-  outDegree, // Adicionando outDegree à desestruturação das props  
+  inDegree, // Adicionando inDegree à desestruturação das props
+  outDegree, // Adicionando outDegree à desestruturação das props
   shortestPathResult,
 }: SideBarProps) {
   const [inputText, setinputText] = useState<string>("");
@@ -44,7 +44,7 @@ export default function SideBar({
     setVerticeEscolhido(e.target.value);
     setNoEscolhido(e.target.value);
   };
-  
+
   const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setinputText(e.target.value);
     setGrafo(e.target.value);
@@ -84,7 +84,7 @@ export default function SideBar({
           <h2 className="text-base">Não direcionado</h2>
         )}
         <div className="transform scale-75">
-          <Interruptor onToggle={handleToggle}/>
+          <Interruptor onToggle={handleToggle} />
         </div>
       </div>
 
@@ -100,10 +100,11 @@ export default function SideBar({
         <h2 className="text-sm">Tamanho: {tamanho}</h2>
       </div>
 
-      <hr/>
+      <hr />
       <div className="text-gray-800 flex flex-col space-y-4">
-
-        <label className="text-white text-sm font-semibold">Menor caminho, custo e adjacência:</label>
+        <label className="text-white text-sm font-semibold">
+          Menor caminho, custo e adjacência:
+        </label>
         <div className="flex flex-row space-x-2 ">
           <input
             type="text"
@@ -117,7 +118,7 @@ export default function SideBar({
             onChange={handleToNodeChange}
             className="p-2 rounded-md w-1/2"
           />
-          </div>
+        </div>
 
         {areNodesAdjacent ? (
           <h2 className="text-green-400 text-sm">Vértices são adjacentes</h2>
@@ -126,19 +127,25 @@ export default function SideBar({
         )}
 
         {shortestPathResult ? (
-        <div>
-          <h2 className="text-green-400 text-sm">Custo: {shortestPathResult.cost}</h2>
-          <h2 className="text-green-400 text-sm">Caminho: {shortestPathResult.path.join(" -> ")}</h2>
-        </div>
+          <div>
+            <h2 className="text-green-400 text-sm">
+              Custo: {shortestPathResult.cost}
+            </h2>
+            <h2 className="text-green-400 text-sm">
+              Caminho: {shortestPathResult.path.join(" -> ")}
+            </h2>
+          </div>
         ) : (
           <h2 className="text-red-400 text-sm">Vértices não conexos</h2>
         )}
       </div>
 
-      <hr/>
+      <hr />
 
       <div className="text-gray-800 flex flex-col space-y-4">
-        <label className="text-white text-sm font-semibold"> Grau e vertices adjacentes </label>
+        <label className="text-white text-md font-semibold">
+          Grau e vertices adjacentes
+        </label>
         <input
           type="text"
           placeholder={"Escolha um vértice"}
@@ -146,21 +153,28 @@ export default function SideBar({
           className="p-2 rounded-md"
         />
         {ativo ? (
-          <div className="flex flex-col space-y-4 text-lg text-white text-sm">
+          <div className="flex flex-col space-y-4 text-lg text-white ">
             <div className="flex flex-col">
               <h2>Vértices de Entrada : {adjacenteEntrada.join(" ")}</h2>
               <h2>Vértices de Saída : {adjacenteSaida.join(" ")}</h2>
             </div>
             <div className="flex flex-col">
-              <h2>Grau de Entrada: {inDegree}</h2> {/* Exibindo o grau de entrada */}
-              <h2>Grau de Saída: {outDegree}</h2>   {/* Exibindo o grau de saída */}
+              <h2>Grau de Entrada: {inDegree}</h2>{" "}
+              {/* Exibindo o grau de entrada */}
+              <h2>Grau de Saída: {outDegree}</h2>{" "}
+              {/* Exibindo o grau de saída */}
             </div>
           </div>
         ) : (
           <div>
-            <h2 className="text-white text-sm">Vértices Adjacentes: {Array.from(
+            <h2 className="text-white text-md">
+              Vértices Adjacentes:{" "}
+              {Array.from(
                 new Set([...adjacenteEntrada, ...adjacenteSaida])
               ).join(" ")}
+            </h2>
+            <h2 className="text-white text-md">
+              Grau do vertice: {inDegree + outDegree}
             </h2>
           </div>
         )}
