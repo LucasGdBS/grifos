@@ -1,0 +1,9 @@
+services:
+  grifos:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:80" # Mapeia a porta 80 do contêiner para a 8080 do host
+    container_name: grifo-container
+    restart: always # Reinicia o contêiner automaticamente em caso de falha
