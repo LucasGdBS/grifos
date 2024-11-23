@@ -6,6 +6,7 @@ import { adjacencyCheck } from "./utils/adjacencyCheck.ts";
 import { degreeCheck } from "./utils/degreeCheck.ts";
 import { shortestPathBetweenTwoPoints } from "./utils/shortestPathBetweenTwoPoints";
 import Interruptor from "./components/Interruptor.tsx";
+import { isEulerian } from "./utils/isEulerian.ts";
 
 function App() {
   const [grafoText, setGrafoText] = useState<string>("");
@@ -39,6 +40,8 @@ function App() {
     directed
   );
 
+  const eulerian = isEulerian(edges, directed);
+
   const [isOn, setIsOn] = useState<boolean>(true);
 
   return (
@@ -57,6 +60,7 @@ function App() {
         inDegree={inDegree}
         outDegree={outDegree}
         shortestPathResult={shortestPathResult}
+        eulerian={eulerian}
       />
 
       {/* Nesse main deverá ser implementado a visualização do grafo */}

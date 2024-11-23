@@ -12,9 +12,10 @@ interface SideBarProps {
   tamanho: number;
   adjacenteEntrada: string[];
   adjacenteSaida: string[];
-  inDegree: number; 
-  outDegree: number; 
+  inDegree: number;
+  outDegree: number;
   shortestPathResult: { cost: number; path: string[] } | null; // Recebe o resultado do menor caminho
+  eulerian: boolean;
 }
 
 export default function SideBar({
@@ -28,9 +29,10 @@ export default function SideBar({
   tamanho: size,
   adjacenteEntrada,
   adjacenteSaida,
-  inDegree, 
-  outDegree, 
+  inDegree,
+  outDegree,
   shortestPathResult,
+  eulerian,
 }: SideBarProps) {
   const [inputText, setinputText] = useState<string>("");
 
@@ -174,6 +176,14 @@ export default function SideBar({
               Grau do vertice: {inDegree + outDegree}
             </h2>
           </div>
+        )}
+      </div>
+      <hr />
+      <div className="text-lg">
+        {eulerian ? (
+          <h2 className="text-green-400">Grafo Euleriano</h2>
+        ) : (
+          <h2 className="text-red-400">Grafo não Euleriano</h2>
         )}
       </div>
     </aside>
