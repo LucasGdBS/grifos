@@ -71,7 +71,6 @@ function App() {
               nodes={nodes}
               edges={edges}
               isDirectional={directed}
-              primaryNodeInput={grafoText}
             />
           ) : (
             <div className="flex justify-center items-center h-full ">
